@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Coursera</string>
+
+    <!--Course Callback-->
+    <string name="server_error">Server Error!</string>
+    <string name="no_network"> No Network!</string>
+    <string name="network_error">Network Error</string>
+    <string name="unknown_error">Unknown Error</string>
+
+    <!--ApiService-->
+    <string name="api_url">https://api.coursera.org/api/catalog.v1/</string>
+
+</resources>
