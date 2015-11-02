@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_activity"
+    android:id="@+id/course_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,25 +10,31 @@
         android:layout_height="46dp"
         android:background="@color/primary">
 
-        <TextView
+        <ImageView
+            android:id="@+id/course_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15.33dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/back" />
+
+
+        <TextView
+            android:id="@+id/course_name"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
             android:layout_gravity="center"
-            android:text="@string/app_name"
             android:textColor="#ffffff"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/main_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="20.33dp"
-            android:paddingTop="10dp"
-            android:src="@drawable/search" />
     </FrameLayout>
 
     <FrameLayout

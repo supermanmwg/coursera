@@ -10,4 +10,10 @@
     <!--ApiService-->
     <string name="api_url">https://api.coursera.org/api/catalog.v1/</string>
 
+    <!--Error-->
+    <string name="get_category_error">Get Categories failed:%1$s</string>
+    <string name="get_courses_error">Get Courses failed:%1$s</string>
+    <string name="language">Language: %1$s</string>
+    <string name="work_load">Workload: %1$s</string>
+    <string name="instructor">instructor: %1$s</string>
 </resources>

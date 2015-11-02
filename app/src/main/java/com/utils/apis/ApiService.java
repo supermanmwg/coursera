@@ -18,6 +18,7 @@ public class ApiService {
         this.mContext = context.getApplicationContext();
         RestAdapter.Builder builder = new RestAdapter.Builder();
         builder.setEndpoint(mContext.getString(R.string.api_url));
+        builder.setLogLevel(RestAdapter.LogLevel.FULL);
         mRestAdapter = builder.build();
     }
 
