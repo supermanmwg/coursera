@@ -76,6 +76,8 @@ public class CourseSearchActivity extends BaseActivity implements IClickHistoryL
                 query = intent.getDataString();
             }
 
+            if (query != null)
+                mHistoryOperations.addHistory(query);
             initContentFragment(query);
         }
     }
