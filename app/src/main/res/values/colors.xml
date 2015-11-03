@@ -7,5 +7,6 @@
    <color name="category_color_2">#f2e6d5</color>
    <color name="category_color_3">#c8e5d6</color>
    <color name="category_color_4">#c3ddf1</color>
+   <color name="search_edit_text_hint">#BBBBBB</color>
 
 </resources>

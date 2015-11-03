@@ -11,4 +11,8 @@
     <dimen name="comb_home_header_height">111dp</dimen>
     <dimen name="comb_home_search_area_height">65dp</dimen>
     <dimen name="alter_push_length">16.66dp</dimen>
+
+    <!--Search-->
+    <dimen name="search_edit_text_size">14.66sp</dimen>
+    <dimen name="search_margin_right">32dp</dimen>
 </resources>

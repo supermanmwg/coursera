@@ -2,11 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/home/supermanmwg/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
+        jar="/home/supermanmwg/Study/coursera/app/build/intermediates/exploded-aar/com.wefika/flowlayout/0.4.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287">
-        <dex dex="/home/supermanmwg/Study/coursera/app/build/intermediates/pre-dexed/debug/systembartint-1.0.3-17d5010ce923eda04809a3e69b7c1605196ef718.jar" />
+        sha1="4788a5628a012b983a8e559b47f1f25e23b449f5">
+        <dex dex="/home/supermanmwg/Study/coursera/app/build/intermediates/pre-dexed/debug/classes-122d1104fe75e78dbcf066d936dfcebbaf3a37f4.jar" />
+    </item>
+    <item
+        jar="/home/supermanmwg/.gradle/caches/modules-2/files-2.1/com.intellij/annotations/12.0/bbcf6448f6d40abe506e2c83b70a3e8bfd2b4539/annotations-12.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="bbcf6448f6d40abe506e2c83b70a3e8bfd2b4539">
+        <dex dex="/home/supermanmwg/Study/coursera/app/build/intermediates/pre-dexed/debug/annotations-12.0-09e8b130c64aa2fad9150e5ba3a38eda866b196e.jar" />
     </item>
 
 </items>

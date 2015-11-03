@@ -16,4 +16,12 @@
     <string name="language">Language: %1$s</string>
     <string name="work_load">Workload: %1$s</string>
     <string name="instructor">instructor: %1$s</string>
+
+    <!--Search-->
+    <string name="toast_search_empty">Please input the search key</string>
+    <string name="hint_search">Input the course you need</string>
+    <string name="search">Search</string>
+    <string name="no_match">no match</string>
+    <string name="no_history">no history</string>
+    <string name="search_history_name">history</string>
 </resources>

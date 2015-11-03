@@ -1,10 +1,12 @@
 package com.coursera;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.base.activities.BaseActivity;
+import com.coursera.activities.CourseSearchActivity;
 import com.coursera.fragments.CategoryFragment;
 
 import butterknife.OnClick;
@@ -14,7 +16,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.main_search)
     public void onSearch(View v) {
-
+        startActivity(new Intent(this, CourseSearchActivity.class));
     }
 
     @Override

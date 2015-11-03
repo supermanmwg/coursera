@@ -40,4 +40,11 @@ public interface ICourseApi {
             @Query("id") int id,
             Callback<CourseDetailRjo> callback
     );
+
+    //search course by key word
+    @GET("/courses?q=search&fields=largeIcon,estimatedClassWorkload&includes=universities")
+    void getCourseByKeyword(
+            @Query("query") String query,
+            Callback<CourseRjo> callback
+    );
 }
