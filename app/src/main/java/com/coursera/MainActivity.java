@@ -7,7 +7,9 @@ import android.view.View;
 
 import com.base.activities.BaseActivity;
 import com.coursera.activities.CourseSearchActivity;
+import com.coursera.activities.StickyActivity;
 import com.coursera.fragments.CategoryFragment;
+import com.utils.customviews.StickLayout;
 
 import butterknife.OnClick;
 
@@ -16,7 +18,8 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.main_search)
     public void onSearch(View v) {
-        startActivity(new Intent(this, CourseSearchActivity.class));
+        startActivity(new Intent(this, StickyActivity.class));
+       // startActivity(new Intent(this, CourseSearchActivity.class));
     }
 
     @Override

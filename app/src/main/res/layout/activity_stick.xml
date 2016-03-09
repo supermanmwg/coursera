@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.utils.customviews.StickLayout
+        android:id="@+id/stick_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/stick_header"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#787878"
+            android:layout_marginTop="-100dp"
+            android:orientation="vertical"/>
+
+        <ListView
+            android:id="@+id/stick_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.utils.customviews.StickLayout>
+
+</LinearLayout>
