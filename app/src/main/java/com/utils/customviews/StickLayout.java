@@ -2,6 +2,7 @@ package com.utils.customviews;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.transition.Slide;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,6 +19,10 @@ import java.util.NoSuchElementException;
  */
 public class StickLayout extends LinearLayout {
     private final static String TAG = "StickLayout";
+    public static final int LAYOUT_MODE = 1;
+    public static final int SCROLL_MODE = 2;
+
+    private int slideMode = SCROLL_MODE;
 
     private View mHeader;
     private int mScaleSlop;
@@ -78,7 +83,7 @@ public class StickLayout extends LinearLayout {
                 mLastY = y;  //这里面如果没有这句就是一个坑啊,因为在aciton down事件的时候,因为返回为false,所以不会调用StickLayout的onTouchEvent
                 intercepted = false;
                 Log.d(TAG, "1 action down");
-                if(!mScroller.isFinished()) {
+                if(!mScroller.isFinished() && SCROLL_MODE == slideMode) {
                     intercepted = true;
                 }
                 break;
@@ -119,14 +124,21 @@ public class StickLayout extends LinearLayout {
                     mHeaderHeight = 0;
                 }
                 Log.d(TAG, "y is " + y + ", mLastY is " + mLastY + ", mHeaderHeight is " + mHeaderHeight + "deltaY is " + deltaY);
-            /*    ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) mHeader.getLayoutParams();
-                p.setMargins(0, 0 - mHeaderHeight, 0, 0);
-                mHeader.requestLayout();*/
-                scrollBy(0, -deltaY);
+                if(LAYOUT_MODE == slideMode) {
+                    ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) mHeader.getLayoutParams();
+                    p.setMargins(0, 0 - mHeaderHeight, 0, 0);
+                    mHeader.requestLayout();
+                } else if (SCROLL_MODE == slideMode) {
+                    scrollBy(0, -deltaY);
+                }
                 break;
             case MotionEvent.ACTION_UP:
-                smoothScrollBy(0, mOriginalHeaderHeight - mHeaderHeight);
-                mHeaderHeight = mOriginalHeaderHeight;
+                if(LAYOUT_MODE == slideMode) {
+                    smoothSetHeaderHeight(0 - mHeaderHeight, 0 - mOriginalHeaderHeight, 500);
+                } else if (SCROLL_MODE == slideMode) {
+                    smoothScrollBy(0, mOriginalHeaderHeight - mHeaderHeight, 500);
+                }
+               mHeaderHeight = mOriginalHeaderHeight;
                 break;
         }
 
@@ -135,10 +147,9 @@ public class StickLayout extends LinearLayout {
         return true;
     }
 
-    private void smoothScrollBy(int dx, int dy) {
-        mScroller.startScroll(0, getScrollY(), 0, dy, 500);
+    private void smoothScrollBy(int dx, int dy, int duration) {
+        mScroller.startScroll(dx, getScrollY(), dx, dy, duration);
         invalidate();
-
     }
 
     @Override
@@ -147,6 +158,39 @@ public class StickLayout extends LinearLayout {
             scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
             postInvalidate();
         }
+    }
+
+
+    public void smoothSetHeaderHeight(final int from, final int to, long duration) {
+        final int frameCount = (int) (duration / 1000f * 30) + 1;  //一秒钟大约30帧
+        final float partation = (to - from) / (float) frameCount;  //每一帧的距离
+        new Thread("Thread#smoothSetHeaderHeight") {
+
+            @Override
+            public void run() {
+                for (int i = 0; i < frameCount; i++) {
+                    final int height;
+                    if (i == frameCount - 1) {
+                        height = to;
+                    } else {
+                        height = (int) (from + partation * i);
+                    }
+                    post(new Runnable() {
+                        public void run() {
+                            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) mHeader.getLayoutParams();
+                            p.setMargins(0, height, 0, 0);
+                            mHeader.requestLayout();
+                        }
+                    });
+                    try {
+                        sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+        }.start();
     }
 
     public void setGiveUpTouchListener(IGiveUpTouchListener giveUpTouchListener) {

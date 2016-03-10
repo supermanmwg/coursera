@@ -2,6 +2,7 @@ package com.coursera.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import com.utils.customviews.StickLayout;
  * Created by weiguangmeng on 16/3/9.
  */
 public class StickyActivity extends Activity {
+    private final String TAG = "StickyActivity";
 
     private String data[] =
             {   "banana0", "apple0", "oranges0", "pear0", "grape0", "cherry0",
@@ -40,6 +42,7 @@ public class StickyActivity extends Activity {
         public boolean giveUpTouchEvent(MotionEvent event) {
             if(mListView != null && 0 == mListView.getFirstVisiblePosition()) {
                 View firstChild = mListView.getChildAt(0);
+                Log.d(TAG, "first child top is " + firstChild.getTop());
                 if(firstChild.getTop() >= 0) {
                     return true;
                 }
