@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Scroller;
 
 import java.util.NoSuchElementException;
 
@@ -26,18 +27,22 @@ public class StickLayout extends LinearLayout {
     private int mLastYIntercept;
     private boolean mInitDataSuccess = false;
     private IGiveUpTouchListener  giveUpTouchListener;
+    private Scroller mScroller;
 
     public StickLayout(Context context) {
         super(context);
+        mScroller = new Scroller(getContext());
     }
 
     public StickLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mScroller = new Scroller(getContext());
     }
 
     @TargetApi(11)
     public StickLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mScroller = new Scroller(getContext());
     }
 
     @Override
@@ -73,6 +78,9 @@ public class StickLayout extends LinearLayout {
                 mLastY = y;  //这里面如果没有这句就是一个坑啊,因为在aciton down事件的时候,因为返回为false,所以不会调用StickLayout的onTouchEvent
                 intercepted = false;
                 Log.d(TAG, "1 action down");
+                if(!mScroller.isFinished()) {
+                    intercepted = true;
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 int deltaY = y - mLastYIntercept;
@@ -101,18 +109,39 @@ public class StickLayout extends LinearLayout {
                 int deltaY = y - mLastY;
                 Log.d(TAG, "move header height is " + mHeaderHeight);
                 mHeaderHeight -= deltaY;
+                if(mHeaderHeight < 0) {
+                    mHeaderHeight = 0;
+                    deltaY = 0;
+                }
                 Log.d(TAG, "y is " + y + ", mLastY is " + mLastY + ", mHeaderHeight is " + mHeaderHeight);
-                ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) mHeader.getLayoutParams();
-                p.setMargins(0, 0 - mHeaderHeight , 0, 0);
-                mHeader.requestLayout();
+            /*    ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) mHeader.getLayoutParams();
+                p.setMargins(0, 0 - mHeaderHeight, 0, 0);
+                mHeader.requestLayout();*/
+                scrollBy(0, -deltaY);
                 break;
             case MotionEvent.ACTION_UP:
+                smoothScrollBy(0, mOriginalHeaderHeight - mHeaderHeight);
+                mHeaderHeight = mOriginalHeaderHeight;
                 break;
         }
 
         mLastY = y;
 
         return true;
+    }
+
+    private void smoothScrollBy(int dx, int dy) {
+        mScroller.startScroll(0, getScrollY(), 0, dy, 500);
+        invalidate();
+
+    }
+
+    @Override
+    public void computeScroll() {
+        if(mScroller.computeScrollOffset()) {
+            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            postInvalidate();
+        }
     }
 
     public void setGiveUpTouchListener(IGiveUpTouchListener giveUpTouchListener) {
