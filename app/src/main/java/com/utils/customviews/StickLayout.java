@@ -101,22 +101,24 @@ public class StickLayout extends LinearLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int y = (int) event.getY();
-
+        int deltaY = 0;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 break;
             case MotionEvent.ACTION_MOVE:
-                int deltaY = y - mLastY;
                 Log.d(TAG, "move header height is " + mHeaderHeight);
-                if(mHeaderHeight != 0) {
+                if(mHeaderHeight > 0) {
+                     deltaY = y - mLastY;
                     mHeaderHeight -= deltaY;
-                } 
+                } else {
+                    deltaY = 0;
+                }
 
                 if(mHeaderHeight < 0) {
-                    deltaY =  mHeaderHeight;
+                    deltaY =  mHeaderHeight + deltaY;
                     mHeaderHeight = 0;
                 }
-                Log.d(TAG, "y is " + y + ", mLastY is " + mLastY + ", mHeaderHeight is " + mHeaderHeight);
+                Log.d(TAG, "y is " + y + ", mLastY is " + mLastY + ", mHeaderHeight is " + mHeaderHeight + "deltaY is " + deltaY);
             /*    ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) mHeader.getLayoutParams();
                 p.setMargins(0, 0 - mHeaderHeight, 0, 0);
                 mHeader.requestLayout();*/
