@@ -108,10 +108,13 @@ public class StickLayout extends LinearLayout {
             case MotionEvent.ACTION_MOVE:
                 int deltaY = y - mLastY;
                 Log.d(TAG, "move header height is " + mHeaderHeight);
-                mHeaderHeight -= deltaY;
+                if(mHeaderHeight != 0) {
+                    mHeaderHeight -= deltaY;
+                } 
+
                 if(mHeaderHeight < 0) {
+                    deltaY =  mHeaderHeight;
                     mHeaderHeight = 0;
-                    deltaY = 0;
                 }
                 Log.d(TAG, "y is " + y + ", mLastY is " + mLastY + ", mHeaderHeight is " + mHeaderHeight);
             /*    ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) mHeader.getLayoutParams();
